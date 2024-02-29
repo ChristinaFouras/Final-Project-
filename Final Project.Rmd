@@ -4,9 +4,17 @@ output: html_document
 date: "2024-02-29"
 ---
 
+```{r}
+library(tidyverse)
+library(data.world)
+library(ggrepel)
+```
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 dataset1 <- read.csv("https://query.data.world/s/7gnr3abaibjhwswennwfmct3pwbcre?dws=00000", header=TRUE, stringsAsFactors=FALSE);
+
+
 ```
 #FINAL PROJECT
 
@@ -30,9 +38,10 @@ This data was collected in the Spring of 2015 (April - May). The dating app used
 
 ### What variables did we create
 ```{r}
-dataset2 %>%
-  mutate(total_interaction = counts_kisses + counts_profilevisits) %>% 
-  select(ishighlighted, total_interaction, counts_kisses, counts_profilevisits)
+str(dataset1)
+dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profileVisits)%>%
+  select(isHighlighted, total_interaction, counts_kisses, counts_profileVisits)
 
 ```
 
@@ -43,16 +52,16 @@ dataset2 %>%
 
 ###Exploration (include 2-3 exploratory vizualisations)
 ```{r}
-dataset2 %>%
-  mutate(total_interaction = counts_kisses + counts_profilevisits) %>%
+dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profileVisits) %>%
   filter(total_interaction != "173713") %>%
   ggplot() +
-  geom_jitter(aes(x = ishighlighted, y = total_interaction))
+  geom_jitter(aes(x = isHighlighted, y = total_interaction))
 
-dataset2 %>%
-  mutate(total_interaction = counts_kisses + counts_profilevisits) %>%
+dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profileVisits) %>%
   ggplot() +
-  geom_jitter(aes(x = ishighlighted, y = total_interaction))
+  geom_jitter(aes(x = isHighlighted, y = total_interaction))
 ```
 
 ##Findings and Interpretations
