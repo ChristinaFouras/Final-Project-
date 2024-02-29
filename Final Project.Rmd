@@ -18,9 +18,9 @@ The proliferation of dating apps has transformed the landscape of modern romance
 inset hypothesis
 
 ##Describe the Dataset
-What is the dataset about? 
-What is an observation? How many observations are there?
-Where does the data come from and who collected it/own it? 
+
+This data was collected in the Spring of 2015 (April - May). The dating app used to get this data is called Lovoo, an app primarily used in European countries. The data was gotten from the profiles of the users involved. The people involved in this study were chosen by Lovoo's algorithm. Units of observations include numerical values (ex:Age), M/F for gender, individual profile names, and True/False in place of Yes/No. 
+
 
 ##Transformations
 ### How did we make the data set tidy (include code chunk)
@@ -30,6 +30,9 @@ Where does the data come from and who collected it/own it?
 
 ### What variables did we create
 ```{r}
+dataset2 %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits) %>% 
+  select(ishighlighted, total_interaction, counts_kisses, counts_profilevisits)
 
 ```
 
@@ -40,7 +43,16 @@ Where does the data come from and who collected it/own it?
 
 ###Exploration (include 2-3 exploratory vizualisations)
 ```{r}
+dataset2 %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits) %>%
+  filter(total_interaction != "173713") %>%
+  ggplot() +
+  geom_jitter(aes(x = ishighlighted, y = total_interaction))
 
+dataset2 %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits) %>%
+  ggplot() +
+  geom_jitter(aes(x = ishighlighted, y = total_interaction))
 ```
 
 ##Findings and Interpretations
