@@ -8,17 +8,51 @@ date: "2024-02-29"
 knitr::opts_chunk$set(echo = TRUE)
 dataset1 <- read.csv("https://query.data.world/s/7gnr3abaibjhwswennwfmct3pwbcre?dws=00000", header=TRUE, stringsAsFactors=FALSE);
 ```
+#FINAL PROJECT
 
 ##Backround Information 
 
 The proliferation of dating apps has transformed the landscape of modern romance, providing individuals with unprecedented opportunities to connect with potential partners. Amidst the array of features offered by these platforms, the option to pay for enhanced profile visibility, known as "highlighting," has emerged as a strategy to increase user engagement. Profile highlighting aims to elevate the visibility of user profiles within the app's interface, potentially amplifying opportunities for interaction and connection. ^[Bouke de Vries 2023 <https://doi.org/10.1007/s10676-023-09704-y>] The research question at hand is whether users who opt for profile highlighting receive more likes and profile visits compared to those who do not utilize this feature.
 
-## Including Plots
+##Hypothesis
+inset hypothesis
 
-You can also embed plots, for example:
+##Describe the Dataset
+What is the dataset about? 
+What is an observation? How many observations are there?
+Where does the data come from and who collected it/own it? 
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+##Transformations
+### How did we make the data set tidy (include code chunk)
+```{r}
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+### What variables did we create
+```{r}
+
+```
+
+###How did you transform the dataset to visualize it? INCLUDE 2 EX
+```{r}
+
+```
+
+###Exploration (include 2-3 exploratory vizualisations)
+```{r}
+
+```
+
+##Findings and Interpretations
+create result table
+result viz include code chunk for this
+```{r}
+
+```
+
+##Conclusion (answer following questions)
+What do your findings reveal about the relationship of interest?
+How might you refine your hypothesis?
+What significance does figuring out this relationship hold for society/science at large? (we’re likely tackling small problems here, so don’t be intimidated by this big language, it’s always important to explain why figuring out what you’re figuring out is *somehow* worth caring about. Stating the significance is always your pre-emptive answer to someone’s “so what?” question)
+
+
