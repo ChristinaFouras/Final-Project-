@@ -20,10 +20,11 @@ dataset1 <- read.csv("https://query.data.world/s/7gnr3abaibjhwswennwfmct3pwbcre?
 
 ##Backround Information 
 
-The proliferation of dating apps has transformed the landscape of modern romance, providing individuals with unprecedented opportunities to connect with potential partners. Amidst the array of features offered by these platforms, the option to pay for enhanced profile visibility, known as "highlighting," has emerged as a strategy to increase user engagement. Profile highlighting aims to elevate the visibility of user profiles within the app's interface, potentially amplifying opportunities for interaction and connection. ^[Bouke de Vries 2023 <https://doi.org/10.1007/s10676-023-09704-y>] The research question at hand is whether users who opt for profile highlighting receive more likes and profile visits compared to those who do not utilize this feature.
+The proliferation of dating apps has transformed the landscape of modern romance, providing individuals with unprecedented opportunities to connect with potential partners. Amidst the array of features offered by these platforms, the option to pay for enhanced profile visibility, known as "highlighting," has emerged as a strategy to increase user engagement. Profile highlighting aims to elevate the visibility of user profiles within the app's interface, potentially amplifying opportunities for interaction and connection. ^[Bouke de Vries 2023 <https://doi.org/10.1007/s10676-023-09704-y>] 
 
 ##Hypothesis
-inset hypothesis
+he research question at hand is whether users who opt for profile highlighting receive more likes and profile visits compared to those who do not utilize this feature.
+
 
 ##Describe the Dataset
 
@@ -33,7 +34,7 @@ This data was collected in the Spring of 2015 (April - May). The dating app used
 ##Transformations
 ### How did we make the data set tidy (include code chunk)
 ```{r}
-
+View(dataset1)
 ```
 
 ### What variables did we create
