@@ -20,10 +20,14 @@ dataset1 <- read.csv("https://query.data.world/s/7gnr3abaibjhwswennwfmct3pwbcre?
 
 ##Backround Information 
 
-The proliferation of dating apps has transformed the landscape of modern romance, providing individuals with unprecedented opportunities to connect with potential partners. Amidst the array of features offered by these platforms, the option to pay for enhanced profile visibility, known as "highlighting," has emerged as a strategy to increase user engagement. Profile highlighting aims to elevate the visibility of user profiles within the app's interface, potentially amplifying opportunities for interaction and connection. ^[Bouke de Vries 2023 <https://doi.org/10.1007/s10676-023-09704-y>] 
+According to Pew Research Center up to 53% of couples under 30 met online. The proliferation of dating apps has transformed the landscape of modern romance, providing individuals with unprecedented opportunities to connect with potential partners. Amidst the array of features offered by these platforms, the option to pay for enhanced profile visibility, known as "highlighting," has emerged as a strategy to increase user engagement. Profile highlighting aims to elevate the visibility of user profiles within the app's interface, potentially amplifying opportunities for interaction and connection. ^[Bouke de Vries 2023 <https://doi.org/10.1007/s10676-023-09704-y>]We want to examine  
 
 ##Hypothesis
-he research question at hand is whether users who opt for profile highlighting receive more likes and profile visits compared to those who do not utilize this feature.
+The research question at hand is whether users who opt for profile highlighting receive more likes and profile visits compared to those who do not utilize this feature.
+
+Alternitavly we want to look at what the best strategy at finding love it
+
+
 
 
 ##Describe the Dataset
@@ -43,6 +47,16 @@ str(dataset1)
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profileVisits)%>%
   select(isHighlighted, total_interaction, counts_kisses, counts_profileVisits)
+
+dataset1%>%
+  filter(isVip==1)%>%
+  mutate(vip_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
+  select(vip_interaction)
+
+dataset1%>%
+  filter(verified==0)%>%
+  mutate(verified_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
+  select(verified_interaction)
 
 ```
 
