@@ -54,15 +54,30 @@ dataset1%>%
   select(vip_interaction)
 
 dataset1%>%
-  filter(verified==0)%>%
+  filter(verified==1)%>%
   mutate(verified_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
   select(verified_interaction)
+
+dataset1%>%
+  filter(isHighlighted==1)%>%
+  mutate(highlighted_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
+  select(highlighted_interaction)
+
 
 ```
 
 ###How did you transform the dataset to visualize it? INCLUDE 2 EX
 ```{r}
-
+interaction_data<-dataset1%>%
+  filter(verified==0)%>%
+  filter(isVip==1)%>%
+  filter(isHighlighted==1)%>%
+  mutate(highlighted_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
+  mutate(vip_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
+  mutate(verified_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
+  select(highlighted_interaction,verified_interaction,vip_interaction,name)
+  arrange(desc(verified_interaction))
+  
 ```
 
 ###Exploration (include 2-3 exploratory vizualisations)
