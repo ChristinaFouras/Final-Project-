@@ -1,5 +1,5 @@
 ---
-sstitle: "Final Project:Christina, Gaia, Alex"
+sstitle: "Final Project:Christina, Gaia Menni, Alex"
 output: html_document
 date: "2024-02-29"
 ---
@@ -24,7 +24,7 @@ According to Pew Research Center up to 53% of couples under 30 met online. The p
 ##Hypothesis
 The research question at hand is whether users who opt for profile highlighting receive more likes and profile visits compared to those who do not utilize this feature.
 
-Alternitavly we want to look at what the best strategy at finding love it
+Alternitavly we want to look at what the best strategy at finding love is
 
 
 
@@ -67,7 +67,7 @@ dataset1%>%
 
 ###How did you transform the dataset to visualize it? INCLUDE 2 EX
 ```{r}
-#I want to combine these three things into one table by themselves and arrange in decencing order 
+#I want to combine these three things into one table by themselves and arrange in decending order 
 interaction_data<-dataset1%>%
   filter(verified==1)%>%
   mutate(verified_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
@@ -84,12 +84,13 @@ interaction_data<-dataset1%>%
 ```{r}
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profileVisits) %>%
-  filter(total_interaction != "173713") %>%
   ggplot() +
   geom_jitter(aes(x = isHighlighted, y = total_interaction))
 
+
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profileVisits) %>%
+  filter(total_interaction != "173713") %>%
   ggplot() +
   geom_jitter(aes(x = isHighlighted, y = total_interaction))
 
@@ -100,7 +101,12 @@ dataset1 %>%
 create result table
 result viz include code chunk for this
 ```{r}
-
+dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profileVisits) %>% 
+  filter(total_interaction != "173713") %>% 
+  ggplot(aes(x = isHighlighted, y = total_interaction)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(alpha = .05)
 ```
 
 ##Conclusion (answer following questions)
