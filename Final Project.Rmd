@@ -1,6 +1,8 @@
 ---
 sstitle: "Final Project:Christina, Gaia Menni, Alex"
-output: html_document
+output: html_notebook
+prettydoc::html_pretty:
+    theme: hpstr
 date: "2024-02-29"
 ---
 
@@ -15,13 +17,13 @@ knitr::opts_chunk$set(echo = TRUE)
 dataset1 <- data.world ::query(data.world::qry_sql("SELECT * FROM lovoo_v3_users_api_results"), dataset = "https://data.world/jfreex/dating-app-user-profiles-stats-lovoo-v3")
 
 ```
-#FINAL PROJECT
+# FINAL PROJECT
 
-##Backround Information 
+## Backround Information 
 
 According to Pew Research Center up to 53% of couples under 30 met online. The proliferation of dating apps has transformed the landscape of modern romance, providing individuals with unprecedented opportunities to connect with potential partners. Amidst the array of features offered by these platforms, the option to pay for enhanced profile visibility, known as "highlighting," has emerged as a strategy to increase user engagement. Profile highlighting aims to elevate the visibility of user profiles within the app's interface, potentially amplifying opportunities for interaction and connection. ^[Bouke de Vries 2023 <https://doi.org/10.1007/s10676-023-09704-y>]We want to examine  
 
-##Hypothesis
+## Hypothesis
 The research question at hand is whether users who opt for profile highlighting receive more likes and profile visits compared to those who do not utilize this feature.
 
 Alternitavly we want to look at what the best strategy at finding love is
@@ -29,12 +31,12 @@ Alternitavly we want to look at what the best strategy at finding love is
 
 
 
-##Describe the Dataset
+## Describe the Dataset
 
 This data was collected in the Spring of 2015 (April - May). The dating app used to get this data is called Lovoo, an app primarily used in European countries. The data was gotten from the profiles of the users involved. The people involved in this study were chosen by Lovoo's algorithm. Units of observations include numerical values (ex:Age), M/F for gender, individual profile names, and True/False in place of Yes/No. 
 
 
-##Transformations
+## Transformations
 ### How did we make the data set tidy (include code chunk)
 ```{r}
 View(dataset1)
@@ -65,7 +67,7 @@ dataset1%>%
 
 ```
 
-###How did you transform the dataset to visualize it? INCLUDE 2 EX
+### How did you transform the dataset to visualize it? INCLUDE 2 EX
 ```{r}
 #I want to combine these three things into one table by themselves and arrange in decending order 
 interaction_data<-dataset1%>%
@@ -80,7 +82,7 @@ interaction_data<-dataset1%>%
   
 ```
 
-###Exploration (include 2-3 exploratory vizualisations)
+### Exploration (include 2-3 exploratory vizualisations)
 ```{r}
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits) %>%
@@ -97,7 +99,7 @@ dataset1 %>%
 
 ```
 
-##Findings and Interpretations
+## Findings and Interpretations
 create result table
 result viz include code chunk for this
 ```{r}
@@ -109,7 +111,7 @@ dataset1 %>%
   geom_jitter(alpha = .05)
 ```
 
-##Conclusion (answer following questions)
+## Conclusion (answer following questions)
 What do your findings reveal about the relationship of interest?
 How might you refine your hypothesis?
 What significance does figuring out this relationship hold for society/science at large? (we’re likely tackling small problems here, so don’t be intimidated by this big language, it’s always important to explain why figuring out what you’re figuring out is *somehow* worth caring about. Stating the significance is always your pre-emptive answer to someone’s “so what?” question)
