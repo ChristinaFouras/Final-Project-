@@ -12,7 +12,7 @@ library(ggrepel)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-dataset1 <- read.csv("https://query.data.world/s/7gnr3abaibjhwswennwfmct3pwbcre?dws=00000", header=TRUE, stringsAsFactors=FALSE);
+dataset1 <- data.world ::query(data.world::qry_sql("SELECT * FROM lovoo_v3_users_api_results"), dataset = "https://data.world/jfreex/dating-app-user-profiles-stats-lovoo-v3")
 
 ```
 #FINAL PROJECT
@@ -44,22 +44,22 @@ View(dataset1)
 ```{r}
 str(dataset1)
 dataset1 %>%
-  mutate(total_interaction = counts_kisses + counts_profileVisits)%>%
-  select(isHighlighted, total_interaction, counts_kisses, counts_profileVisits)
+  mutate(total_interaction = counts_kisses + counts_profilevisits)%>%
+  select(ishighlighted, total_interaction, counts_kisses, counts_profilevisits)
 
 dataset1%>%
-  filter(isVip==1)%>%
-  mutate(vip_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
+  filter(isvip==1)%>%
+  mutate(vip_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
   select(vip_interaction)
 
 dataset1%>%
   filter(verified==1)%>%
-  mutate(verified_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
+  mutate(verified_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
   select(verified_interaction)
 
 dataset1%>%
-  filter(isHighlighted==1)%>%
-  mutate(highlighted_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
+  filter(ishighlighted==1)%>%
+  mutate(highlighted_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
   select(highlighted_interaction)
 
 
@@ -70,11 +70,11 @@ dataset1%>%
 #I want to combine these three things into one table by themselves and arrange in decending order 
 interaction_data<-dataset1%>%
   filter(verified==1)%>%
-  mutate(verified_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
-  filter(isVip==1)%>%
-  mutate(vip_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
-  filter(isHighlighted==1)%>%
-  mutate(highlighted_interaction=counts_kisses+counts_profileVisits+counts_fans)%>%
+  mutate(verified_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
+  filter(isvip==1)%>%
+  mutate(vip_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
+  filter(ishighlighted==1)%>%
+  mutate(highlighted_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
   select(highlighted_interaction,verified_interaction,vip_interaction,name)%>%
   arrange(desc(highlighted_interaction,verified_interaction,vip_interaction))
   
@@ -83,16 +83,16 @@ interaction_data<-dataset1%>%
 ###Exploration (include 2-3 exploratory vizualisations)
 ```{r}
 dataset1 %>%
-  mutate(total_interaction = counts_kisses + counts_profileVisits) %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits) %>%
   ggplot() +
-  geom_jitter(aes(x = isHighlighted, y = total_interaction))
+  geom_jitter(aes(x = ishighlighted, y = total_interaction))
 
 
 dataset1 %>%
-  mutate(total_interaction = counts_kisses + counts_profileVisits) %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits) %>%
   filter(total_interaction != "173713") %>%
   ggplot() +
-  geom_jitter(aes(x = isHighlighted, y = total_interaction))
+  geom_jitter(aes(x = ishighlighted, y = total_interaction))
 
 
 ```
@@ -102,9 +102,9 @@ create result table
 result viz include code chunk for this
 ```{r}
 dataset1 %>%
-  mutate(total_interaction = counts_kisses + counts_profileVisits) %>% 
+  mutate(total_interaction = counts_kisses + counts_profilevisits) %>% 
   filter(total_interaction != "173713") %>% 
-  ggplot(aes(x = isHighlighted, y = total_interaction)) +
+  ggplot(aes(x = ishighlighted, y = total_interaction)) +
   geom_boxplot(outlier.shape = NA) +
   geom_jitter(alpha = .05)
 ```
