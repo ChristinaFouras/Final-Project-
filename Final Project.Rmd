@@ -51,20 +51,23 @@ dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits)%>%
   select(ishighlighted, total_interaction, counts_kisses, counts_profilevisits)
 
-dataset1%>%
+vip_interaction<-dataset1%>%
   filter(isvip==1)%>%
   mutate(vip_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
   select(vip_interaction)
 
-dataset1%>%
+verified_interaction<-dataset1%>%
   filter(verified==1)%>%
   mutate(verified_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
   select(verified_interaction)
 
-dataset1%>%
+highlighted_interaction<-dataset1%>%
   filter(ishighlighted==1)%>%
   mutate(highlighted_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
   select(highlighted_interaction)
+
+view(highlighted_interaction)
+view(dataset1)
 
 
 ```
@@ -73,14 +76,7 @@ dataset1%>%
 ```{r}
 #I want to combine these three things into one table by themselves and arrange in decending order 
 interaction_data<-dataset1%>%
-  filter(verified==1)%>%
-  mutate(verified_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
-  filter(isvip==1)%>%
-  mutate(vip_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
-  filter(ishighlighted==1)%>%
-  mutate(highlighted_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
-  select(highlighted_interaction,verified_interaction,vip_interaction,name)%>%
-  arrange(desc(highlighted_interaction,verified_interaction,vip_interaction))
+  full_join(dataset1,highlighted_interaction)
   
 ```
 
