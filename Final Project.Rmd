@@ -6,10 +6,12 @@ prettydoc::html_pretty:
 date: "2024-02-29"
 ---
 
-```{r}
+```{r, include = FALSE}
 library(tidyverse)
 library(data.world)
 library(ggrepel)
+library(prettydoc)
+library(kableExtra)
 ```
 
 ```{r setup, include=FALSE}
