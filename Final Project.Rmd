@@ -47,36 +47,26 @@ View(dataset1)
 ### What variables did we create
 ```{r}
 str(dataset1)
-dataset1 %>%
-  mutate(total_interaction = counts_kisses + counts_profilevisits)%>%
-  select(ishighlighted, total_interaction, counts_kisses, counts_profilevisits)
+dataset <-dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits+counts_fans)%>%
+  select(isvip, verified, ishighlighted, total_interaction, counts_kisses, counts_profilevisits)
 
-vip_interaction<-dataset1%>%
-  filter(isvip==1)%>%
-  mutate(vip_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
-  select(vip_interaction)
+dataset%>%
+  ggplot(aes())
 
-verified_interaction<-dataset1%>%
-  filter(verified==1)%>%
-  mutate(verified_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
-  select(verified_interaction)
 
-highlighted_interaction<-dataset1%>%
-  filter(ishighlighted==1)%>%
-  mutate(highlighted_interaction=counts_kisses+counts_profilevisits+counts_fans)%>%
-  select(highlighted_interaction)
+view(dataset)
 
 view(highlighted_interaction)
-view(dataset1)
-
 
 ```
 
 ### How did you transform the dataset to visualize it? INCLUDE 2 EX
 ```{r}
 #I want to combine these three things into one table by themselves and arrange in decending order 
-interaction_data<-dataset1%>%
-  full_join(dataset1,highlighted_interaction)
+interaction_data <- merge(dataset1, highlighted_interaction, by = NULL)
+
+View(interaction_data)
   
 ```
 
