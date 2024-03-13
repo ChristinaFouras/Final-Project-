@@ -55,23 +55,6 @@ dataset <-dataset1 %>%
 view(dataset)
 
 
-interaction_plot<-dataset%>%
-  select(c(-counts_kisses, counts_profilevisits, counts_fans))%>%
-  mutate(variables=(factor(total_interaction,order=TRUE)))%>%
-  filter(isvip == TRUE, ishighlighted == TRUE, verified == TRUE)
-glimpse(interaction_plot)
-  
-
-interaction_plot%>%
-  ggplot()+
-  geom_boxplot(aes(x=variables,y=total_interaction))
-
-
-
-view(dataset)
-
-view(highlighted_interaction)
-
 ```
 
 ### How did you transform the dataset to visualize it? INCLUDE 2 EX
@@ -109,6 +92,35 @@ dataset %>%
   labs(x = "Variables", y = "Total Interaction", fill = "Variables") +
   scale_fill_manual(name = "Variables", values = c("#1f77b4", "#ff7f0e", "#2ca02c")) +
   theme_minimal()
+
+
+
+datasetinteraction_plot<-dataset%>%
+  select(c(-counts_kisses, counts_profilevisits, counts_fans))%>%
+  mutate(variables=(factor(total_interaction,order=TRUE)))%>%
+  filter(isvip == TRUE, ishighlighted == TRUE, verified == TRUE)
+glimpse(interaction_plot)
+
+interaction_plot%>%
+  ggplot()+
+  geom_boxplot(aes(x=variables,y=total_interaction))
+
+dataset%>%
+  filter(isvip==TRUE,verified==TRUE,ishighlighted==TRUE)%>%
+  ggplot(aes(y=total_interaction))+
+  geom_bar(aes(x=isvip),stat="identity",possition="dodge",col="blue")+
+  geom_bar(position="dodge")+
+  geom_bar(aes(x=ishighlighted),stat="identity",possition="dodge",col="red")+
+  geom_bar(position="dodge")+
+  geom_bar(aes(x=verified),stat="identity",possition="dodge",col="green")+
+  geom_bar(position="dodge")
+
+
+
+
+
+
+
 ```
 
 ## Findings and Interpretations
