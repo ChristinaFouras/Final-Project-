@@ -1,9 +1,9 @@
 ---
 sstitle: "Final Project:Christina, Gaia Menni, Alex Palache"
-output: html_notebook
-prettydoc::html_pretty:
-    theme: hpstr
-date: "2024-02-29"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+date: "2024-03-14"
 ---
 
 ```{r, include = FALSE}
@@ -42,7 +42,7 @@ This data was collected in the Spring of 2015 (April - May). The dating app used
 ## Transformations
 ### How did we make the data set tidy (include code chunk)
 ```{r}
-View(dataset1)
+#THIS NEEDS WORK
 ```
 
 ### What variables did we create
@@ -59,9 +59,9 @@ view(dataset)
 
 ### How did you transform the dataset to visualize it? INCLUDE 2 EX
 ```{r}
-#I want to combine these three things into one table by themselves and arrange in decending order 
+#I want to combine these three things into one table by themselves and arrange in descending order 
 interaction_data <- merge(dataset1, highlighted_interaction, by = NULL)
-
+#DO WE STILL NEED THIS?
 View(interaction_data)
   
 ```
@@ -118,7 +118,7 @@ dataset1 %>%
   ylim(0,40000)
 
 
-#veridied final boxplot
+#verified final boxplot
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits+counts_fans) %>% 
   filter(total_interaction != "173713") %>% 
