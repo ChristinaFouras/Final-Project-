@@ -87,35 +87,15 @@ dataset1 %>%
            isvip == TRUE ~ "isvip",
            verified == TRUE ~ "verified",
            ishighlighted == TRUE ~ "ishighlighted",
-           TRUE ~ "other"
-         ), levels = c("isvip", "verified", "ishighlighted", "other"))) %>%
+         ), levels = c("isvip", "verified", "ishighlighted"))) %>%
   ggplot() + 
   geom_boxplot(aes(x = subgroup, y = total_interaction, fill = fill_variable)) +
   labs(x = "Subgroup", y = "Total Interaction", fill = "Variables") +
-  scale_fill_manual(values = c("isvip" = "blue", "verified" = "green", "ishighlighted" = "red", "other" = "gray")) +
-  theme_minimal()
-
-
-
-datasetinteraction_plot<-dataset%>%
-  select(c(-counts_kisses, counts_profilevisits, counts_fans))%>%
-  mutate(variables=(factor(total_interaction,order=TRUE)))%>%
-  filter(isvip == TRUE, ishighlighted == TRUE, verified == TRUE)
-glimpse(interaction_plot)
-
-interaction_plot%>%
-  ggplot()+
-  geom_boxplot(aes(x=variables,y=total_interaction))
-
-dataset%>%
-  filter(isvip==TRUE,verified==TRUE,ishighlighted==TRUE)%>%
-  ggplot(aes(y=total_interaction))+
-  geom_bar(aes(x=isvip),stat="identity",possition="dodge",col="blue")+
-  geom_bar(position="dodge")+
-  geom_bar(aes(x=ishighlighted),stat="identity",possition="dodge",col="red")+
-  geom_bar(position="dodge")+
-  geom_bar(aes(x=verified),stat="identity",possition="dodge",col="green")+
-  geom_bar(position="dodge")
+  scale_fill_manual(values = c("isvip" = "blue", "verified" = "green", "ishighlighted" = "red")) +
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 90))+
+  ylim(0,1000)
+ 
 
 
 
