@@ -1,5 +1,5 @@
 ---
-sstitle: "Final Project:Christina, Gaia Menni, Alex"
+sstitle: "Final Project:Christina, Gaia Menni, Alex Palache"
 output: html_notebook
 prettydoc::html_pretty:
     theme: hpstr
@@ -79,24 +79,26 @@ dataset1 %>%
   filter(total_interaction != "173713") %>%
   ggplot() +
   geom_jitter(aes(x = ishighlighted, y = total_interaction))
+ 
 
- dataset %>%
+dataset %>%
   filter(total_interaction != "173713") %>%
-   mutate(subgroup = interaction(isvip, verified, ishighlighted),
+  mutate(subgroup = interaction(isvip, verified, ishighlighted),
          fill_variable = factor(case_when(
            isvip == TRUE ~ "isvip",
            verified == TRUE ~ "verified",
            ishighlighted == TRUE ~ "ishighlighted",
+           isvip == FALSE ~ "isvip",
+           verified == FALSE ~ "verified",
+           ishighlighted == FALSE ~ "ishighlighted"
          ), levels = c("isvip", "verified", "ishighlighted"))) %>%
   ggplot() + 
   geom_boxplot(aes(x = subgroup, y = total_interaction, fill = fill_variable)) +
-  labs(x = "Subgroup", y = "Total Interaction", fill = "Variables") +
-  scale_fill_manual(values = c("isvip" = "blue", "verified" = "green", "ishighlighted" = "red")) +
-  theme_minimal()+
-  theme(axis.text.x = element_text(angle = 90))+
-  ylim(0,1000)
- 
-
+  labs(title = "Figure 1", x = "Subgroup", y = "Total Interaction", fill = "Variables") +
+  scale_fill_manual(values = c("isvip" = "blue", "verified" = "green", "ishighlighted" = "pink")) +
+  theme_minimal() +
+  theme(axis.text.x = element_blank()) +
+  coord_cartesian(ylim = c(0, 9000))
 
 
 
@@ -111,32 +113,37 @@ dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits) %>% 
   filter(total_interaction != "173713") %>% 
   ggplot(aes(x = ishighlighted, y = total_interaction)) +
-  geom_boxplot(outlier.shape = NA) +
-  geom_jitter(alpha = .05) +
+  geom_jitter(color = "red") +
+  geom_boxplot(outlier.shape = NA, alpha = 0.05) +
   ylim(0,40000)
+
 
 #veridied final boxplot
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits+counts_fans) %>% 
   filter(total_interaction != "173713") %>% 
   ggplot(aes(x = verified, y = total_interaction)) +
-  geom_boxplot(outlier.shape = NA) +
-  geom_jitter(alpha = .15)+
-  ylim(0,10000)
+  geom_jitter(color = "green") +
+  geom_boxplot(outlier.shape = NA, alpha = 0.05) +
+  ylim(0,40000)
 
 #isvip final boxplot
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans) %>% 
   filter(total_interaction != "173713") %>% 
   ggplot(aes(x = isvip, y = total_interaction)) +
-  geom_boxplot(outlier.shape = NA) +
-  geom_jitter(alpha = .05) +
-  ylim(0,60000)
+  geom_jitter(color = "blue") + 
+  geom_boxplot(outlier.shape = NA, alpha = 0.05) +
+  ylim(0,40000)
+
+
 ```
 
 ## Conclusion (answer following questions)
 What do your findings reveal about the relationship of interest?
 How might you refine your hypothesis?
 What significance does figuring out this relationship hold for society/science at large? (we’re likely tackling small problems here, so don’t be intimidated by this big language, it’s always important to explain why figuring out what you’re figuring out is *somehow* worth caring about. Stating the significance is always your pre-emptive answer to someone’s “so what?” question)
+
+LOTS OF CONCLUSION STATEMENTS. WOOOO. WORDS. WORDS. WORDS. WORDS. WORDS. WORDS. SIGNIFICANCE. WOOO. One drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insite onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
 
 
