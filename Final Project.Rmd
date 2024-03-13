@@ -24,55 +24,71 @@ dataset1 <- data.world ::query(data.world::qry_sql("SELECT * FROM lovoo_v3_users
 
 ## Backround Information 
 
-According to Pew Research Center up to 53% of couples under 30 met online. The proliferation of dating apps has transformed the landscape of modern romance, providing individuals with unprecedented opportunities to connect with potential partners. Amidst the array of features offered by these platforms, the option to pay for enhanced profile visibility, known as "highlighting," has emerged as a strategy to increase user engagement. Profile highlighting aims to elevate the visibility of user profiles within the app's interface, potentially amplifying opportunities for interaction and connection. ^[Bouke de Vries 2023 <https://doi.org/10.1007/s10676-023-09704-y>]We want to examine  
+According to Pew Research Center up to 53% of couples under 30 meet online. The proliferation of dating apps has transformed the landscape of modern romance, providing individuals with unprecedented opportunities to connect with potential partners. Amidst the array of features offered by these platforms, the option to pay for enhanced profile visibility, known as **"highlighting,"** has emerged as a strategy to increase user engagement. Profile highlighting aims to elevate the visibility of user profiles within the app's interface, potentially amplifying opportunities for interaction and connection. ^[Bouke de Vries 2023 <https://doi.org/10.1007/s10676-023-09704-y>]\ We all know dating apps are a huge part of dating life nowadays. We also know that they indeed make it easier to explore options.\ 
+The questions is, does paying for features like **highlight** actually improve your visibility and overall interactions? Does it make a relevant difference?
 
 ## Hypothesis
-The research question at hand is whether users who opt for profile highlighting receive more likes and profile visits compared to those who do not utilize this feature.
+1. The research question at hand is whether users who opt for profile highlighting receive more attention and interaction compared to those who do not utilize this feature.
 
-Alternitavly we want to look at what the best strategy at finding love is
-
+2. In addition, we want to look at what other features improve interaction.\ 
+Our hypothesis is that these features do result in more likes, profile visits and followers on average, but many people who don't use them can still receive just as many or even more.
 
 
 
 ## Describe the Dataset
 
-This data was collected in the Spring of 2015 (April - May). The dating app used to get this data is called Lovoo, an app primarily used in European countries. The data was gotten from the profiles of the users involved. The people involved in this study were chosen by Lovoo's algorithm. Units of observations include numerical values (ex:Age), M/F for gender, individual profile names, and True/False in place of Yes/No. 
+This data was collected in the Spring of 2015 (April - May). The dating app used to get this data is called Lovoo, an app primarily used in European countries. The data came from the profiles of the users involved. The people involved in this study were chosen by Lovoo's algorithm. Units of observation include numerical values (ex:Age), M/F for gender and individual profile names. This dataset has 3973 total observations.
 
 
 ## Transformations
-### How did we make the data set tidy (include code chunk)
-```{r}
-#THIS NEEDS WORK
-```
+### How did we make the data set tidy?
+
+We were lucky, already tidy!
 
 ### What variables did we create
+For this data set we created a new variable combining "counts_kisses," "counts_profilevisits" and "counts_fans" to make "total_interaction". This is to be able to compare total_interaction and "ishighlighted" to determine if paying to be highlighted gives the person more interaciton.\ 
+- counts_kisses = likes
+- counts_profilevisits = profile visits
+- counts_fans = followers
 ```{r}
-str(dataset1)
-dataset <-dataset1 %>%
-  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans)%>%
-  select(isvip, verified, ishighlighted, total_interaction, counts_kisses, counts_profilevisits, counts_fans)
+dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans) %>%
+  select(total_interaction, counts_kisses, counts_profilevisits, counts_fans)
+```
+We also combined the users who are subscribed to at least one of the features to see how their level of interaction is compared to everyone else.
 
-view(dataset)
-
-
+```{r}
+dataset1 %>%
+  mutate(user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE)) %>%
+  select(user_feat, ishighlighted, isvip, verified) %>%
+  filter(user_feat == TRUE)
 ```
 
 ### How did you transform the dataset to visualize it? INCLUDE 2 EX
 ```{r}
+#DO WE STILL NEED THIS?
 #I want to combine these three things into one table by themselves and arrange in descending order 
 interaction_data <- merge(dataset1, highlighted_interaction, by = NULL)
-#DO WE STILL NEED THIS?
+
 View(interaction_data)
-  
+
+```
+We created a new data set that includes only the variables of interest for this project.
+```{r}
+dataset <- dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE)) %>%
+  select(isvip, verified, ishighlighted, total_interaction, counts_kisses, counts_profilevisits, counts_fans, user_feat)
+```
+We also filtered out one of the outlier values to get a better look at the overall trends.
+```{r}
+dataset %>%
+   mutate(total_interaction = counts_kisses + counts_profilevisits) %>%
+  filter(total_interaction != "173713")
 ```
 
 ### Exploration (include 2-3 exploratory vizualisations)
+This first visualization shows us that there are more users that don't pay for highlithing than those who do.
 ```{r}
-dataset1 %>%
-  mutate(total_interaction = counts_kisses + counts_profilevisits) %>%
-  ggplot() +
-  geom_jitter(aes(x = ishighlighted, y = total_interaction))
-
 
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits) %>%
@@ -81,6 +97,8 @@ dataset1 %>%
   geom_jitter(aes(x = ishighlighted, y = total_interaction))
  
 
+
+#To delete?
 dataset %>%
   filter(total_interaction != "173713") %>%
   mutate(subgroup = interaction(isvip, verified, ishighlighted),
@@ -100,8 +118,15 @@ dataset %>%
   theme(axis.text.x = element_blank()) +
   coord_cartesian(ylim = c(0, 9000))
 
+```
+This second visualization shows us that on average those who do pay for a feature get more interaction.
 
-
+```{r}
+dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE)) %>% 
+  filter(total_interaction != "173713") %>% 
+  ggplot() +
+  geom_boxplot(aes(x = user_feat, y = total_interaction, fill = user_feat))
 ```
 
 ## Findings and Interpretations
@@ -136,6 +161,16 @@ dataset1 %>%
   geom_boxplot(outlier.shape = NA, alpha = 0.05) +
   ylim(0,40000)
 
+dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE), fill_variable = factor(case_when(
+           isvip == TRUE ~ "isvip",
+           verified == TRUE ~ "verified",
+           ishighlighted == TRUE ~ "ishighlighted",
+           TRUE ~ "other"
+         ), levels = c("isvip", "verified", "ishighlighted", "other"))) %>%
+  filter(total_interaction != "173713") %>% 
+  ggplot() +
+  geom_boxplot(aes(x = user_feat, y = total_interaction, fill = fill_variable))
 
 ```
 
