@@ -100,9 +100,6 @@ dataset1 %>%
 
 
 
-
-
-
 ```
 
 ## Findings and Interpretations
@@ -115,6 +112,15 @@ dataset1 %>%
   ggplot(aes(x = ishighlighted, y = total_interaction)) +
   geom_boxplot(outlier.shape = NA) +
   geom_jitter(alpha = .05)
+
+
+dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits+counts_fans) %>% 
+  filter(total_interaction != "173713") %>% 
+  ggplot(aes(x = verified, y = total_interaction)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(alpha = .15)+
+  ylim(0,10000)
 ```
 
 ## Conclusion (answer following questions)
