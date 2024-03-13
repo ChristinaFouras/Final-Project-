@@ -12,6 +12,7 @@ library(data.world)
 library(ggrepel)
 library(prettydoc)
 library(kableExtra)
+
 ```
 
 ```{r setup, include=FALSE}
@@ -51,13 +52,32 @@ dataset <-dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits+counts_fans)%>%
   select(isvip, verified, ishighlighted, total_interaction, counts_kisses, counts_profilevisits)
 
+dataset3<-data.frame(
+  Category = c("isvip","ishighlighted","verified")
+)
+
 
 
 dataset%>%
   select(isvip, ishighlighted, verified, total_interaction)%>%
   filter(isvip==TRUE,ishighlighted==TRUE,verified==TRUE)%>%
   ggplot()+
-  geom_boxplot(x=c("isvip", "ishighlighted", "verified"),y = total_interaction)
+  geom_boxplot(aes(x=dataset, y=total_interactions))+
+  geom_boxplot() +
+  labs(title = "How different app features affect Interaction",
+       x = "Variables that may effect interaction",
+       y = "Total Interaction") +
+  theme_minimal()
+
+
+data <- data.frame(
+  Category = rep(c("A", "B", "C"), each = 100))
+ggplot(data, aes(x = Category, y = Value)) +
+  geom_boxplot() +
+  labs(title = "Boxplot with Three Categories",
+       x = "Category",
+       y = "Value") +
+  theme_minimal()
 
 
 view(dataset)
