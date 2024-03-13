@@ -80,17 +80,19 @@ dataset1 %>%
   ggplot() +
   geom_jitter(aes(x = ishighlighted, y = total_interaction))
 
-dataset %>%
-  mutate(x_variables = isvip, verified, ishighlighted) %>%
+ dataset %>%
+  filter(total_interaction != "173713") %>%
+   mutate(subgroup = interaction(isvip, verified, ishighlighted),
+         fill_variable = factor(case_when(
+           isvip == TRUE ~ "isvip",
+           verified == TRUE ~ "verified",
+           ishighlighted == TRUE ~ "ishighlighted",
+           TRUE ~ "other"
+         ), levels = c("isvip", "verified", "ishighlighted", "other"))) %>%
   ggplot() + 
-  geom_boxplot(aes(x = x_variables, y = total_interaction, fill = x_variables))  + 
-  theme(axis.text.x = element_blank()) +
-  geom_segment(data=dataset, mapping=aes(x=1, y=-0.5, xend=3, yend=-0.5), size=2) +
-  annotate("text", x = 2, y = -1, label = "A") + 
-  geom_segment(data=dataset, mapping=aes(x=4, y=-0.5, xend=6, yend=-0.5), size=2) +
-  annotate("text", x = 5, y = -1, label = "B") +
-  labs(x = "Variables", y = "Total Interaction", fill = "Variables") +
-  scale_fill_manual(name = "Variables", values = c("#1f77b4", "#ff7f0e", "#2ca02c")) +
+  geom_boxplot(aes(x = subgroup, y = total_interaction, fill = fill_variable)) +
+  labs(x = "Subgroup", y = "Total Interaction", fill = "Variables") +
+  scale_fill_manual(values = c("isvip" = "blue", "verified" = "green", "ishighlighted" = "red", "other" = "gray")) +
   theme_minimal()
 
 
