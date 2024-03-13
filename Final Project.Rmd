@@ -106,14 +106,16 @@ dataset1 %>%
 create result table
 result viz include code chunk for this
 ```{r}
+#ishighlighted final boxplot
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits) %>% 
   filter(total_interaction != "173713") %>% 
   ggplot(aes(x = ishighlighted, y = total_interaction)) +
   geom_boxplot(outlier.shape = NA) +
-  geom_jitter(alpha = .05)
+  geom_jitter(alpha = .05) +
+  ylim(0,40000)
 
-
+#veridied final boxplot
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits+counts_fans) %>% 
   filter(total_interaction != "173713") %>% 
@@ -121,6 +123,15 @@ dataset1 %>%
   geom_boxplot(outlier.shape = NA) +
   geom_jitter(alpha = .15)+
   ylim(0,10000)
+
+#isvip final boxplot
+dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans) %>% 
+  filter(total_interaction != "173713") %>% 
+  ggplot(aes(x = isvip, y = total_interaction)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(alpha = .05) +
+  ylim(0,60000)
 ```
 
 ## Conclusion (answer following questions)
