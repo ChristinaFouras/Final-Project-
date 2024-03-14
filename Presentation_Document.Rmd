@@ -205,6 +205,7 @@ dataset1 %>%
 
 ### Figure 4: Compares the three user features in how much people interacted with their accounts based on wether or not people opted to use them.   
 
+### Figure 4: Compares the different user features on the why axis using total interactions on the y axis 
 
 
 ## Conclusion 
@@ -221,6 +222,17 @@ dataset1 %>%
   - Limited data on some of the lesser used features
  
 
+- What have we learnt 
+  - Averages total interactions for those who particpated in app features
+  - We saw large changes in the worst case senarios 
+- Circling back
+  - The feature VIP had the most significant effect no surprises there you have to pay for it 
+  - Next most effective was simply being verified
+- Drawbacks 
+  - We will never now what happened next:(
+    - There is no data pertaining to whether or not someone went on a date
+  - There is limited data on the feature ishighlighted with few users using it at the time the data was collected. 
+ 
 
 
 Footnotes
