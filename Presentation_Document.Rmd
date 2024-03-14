@@ -212,20 +212,22 @@ dataset %>%
 
 ```
 
-### Figure 4: Graph of multiple boxplots comparing the averages of people who are VIP, verified, or highlighted against the average of people who are none of those. The Y-axis is “Number of interactions” and the x-avis is “User features”. “User feature” is the variable “user_feat” which consists of “ishighlighted”, “isvip”, and “verified”.  
-
-
-Figures 1 through 3 are visualizations of the dataset, specifically the variables “ishighlighted”, “verified”, and “isvip”. These are all different ways a person can modify their profile to be more visible on the app. They are compared with the variable “total_interaction”. This variable is a combination of “counts_kisses”, “counts_profilevisits”, and “counts_fans”. These variables are all ways to measure the amount of interaction a person's profile gets. “Counts_kisses” measures the amount of ‘kisses’ a profile gets, equivalent to liking a person's profile.  
-
+### Figure 4: Compares the different user features on the why axis using total interactions on the y axis 
 
 
 ## Conclusion 
 
 - What have we learnt 
   - Averages total interactions for those who particpated in app features
+  - We saw large changes in the worst case senarios 
 - Circling back
+  - The feature VIP had the most significant effect no surprises there you have to pay for it 
+  - Next most effective was simply being verified
 - Drawbacks 
-Dating apps are continuously updating themselves trying new strategies to engage more and create new revenue streams. Our deep dive into their data attempted to analyse whether the creation of new features has been effective. We can see that the only feature that you have to pay for with real money does seem to be doing what its supposed to.Those who are willing to shill out a little extra, will have their profile promoted in an effective manner. The next most effective way was to verify your profile so it would be shown in an effective way to draw more interest into your profile, ensuring that you are a real person. A drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insight onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
+  - We will never now what happened next:(
+    - There is no data pertaining to whether or not someone went on a date
+  - There is limited data on the feature ishighlighted with few users using it at the time the data was collected. 
+ 
 
 Data Dictionary^[Data Dictionary <https://data.world/jfreex/dating-app-user-profiles-stats-lovoo-v3/workspace/data-dictionary>]
 
