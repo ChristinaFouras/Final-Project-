@@ -24,7 +24,7 @@ dataset1 <- data.world ::query(data.world::qry_sql("SELECT * FROM lovoo_v3_users
 
 ```
 
-![](https://upload.wikimedia.org/wikipedia/commons/c/c2/Lovoo_Icon_Heart.png){width=25%} 
+![](https://upload.wikimedia.org/wikipedia/commons/4/4d/LOVOO_Heart.png){width=25%} 
 
 ## Backround Information 
 
