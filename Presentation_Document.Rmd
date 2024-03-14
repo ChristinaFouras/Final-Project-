@@ -216,7 +216,7 @@ dataset1 %>%
   - The VIP feature was the pretty clear winner for the most effective but also the only feature you had to pay for 
   - Simply being varified helped alot as well
 - **Drawbacks** 
-  - We will never learn how it went :( 
+  - We will never learn how it went:(
     - without data on wether or not people ever even went out we are unable to truely test how effective a strategy may have been 
   - Limited data on some of the lesser used features
  
