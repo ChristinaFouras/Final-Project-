@@ -95,7 +95,7 @@ dataset1 %>%
   ggtitle("Number of user interactions based on Highlighted Feature")
 
 ```
-This second visualization shows us that on average those who do pay for a feature get more interaction.
+\ This second visualization shows us that on average those who do pay for a feature get more interaction.
 
 ```{r,warning=FALSE}
 dataset1 %>%
