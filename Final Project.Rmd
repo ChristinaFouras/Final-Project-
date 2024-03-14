@@ -6,6 +6,8 @@ output:
   prettydoc::html_pretty:
     theme: architect
     toc: true
+    toc_depth: 2
+    toc_float: true
 ---
 
 ```{r, include = FALSE}
@@ -114,6 +116,17 @@ dataset1 %>%
 
 ## Findings and Interpretations
 
+### Table
+```{r}
+table <- dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE)) %>%
+           group_by(user_feat) %>%
+           summarise(avg_interaction = mean(total_interaction))
+
+kable(table)
+```
+
+
 ### Figure 1: Graph depicting the relationship between the “Number of Interactions” and “Highlighted Feature”. 
 ```{r,warning=FALSE}
 dataset %>%
@@ -189,7 +202,7 @@ dataset %>%
 
 This graph shows us that users who opt for any of the provided features receive on average more attention and interaction compared to those who do not utilize these features. The feature associated with the highest interaction is VIP.\
 
-Figures 1 through 3 are visualizations of the dataset, specifically the variables “ishighlighted”, “verified”, and “isvip”. These are all different ways a person can modify their profile to be more visible on the app. They are compared with the variable “total_interaction”. This variable is a combination of “counts_kisses”, “counts_profilevisits”, and “counts_fans”. These variables are all ways to measure the amount of interaction a person's profile gets. “Counts_kisses” measures the amount of ‘kisses’ a profile gets, equivalent to liking a person's profile.\
+Figures 1 through 3 are visualizations of the dataset, specifically the variables “ishighlighted”, “verified”, and “isvip”. These are all different ways a person can modify their profile to be more visible on the app. They are compared with the variable “total_interaction”. This variable is a combination of “counts_kisses”, “counts_profilevisits”, and “counts_fans”. These variables are all ways to measure the amount of interaction a person's profile gets.\
 We can see that the only feature that you have to pay for with real money does seem to be doing what its supposed to. Those who are willing to shill out a little extra, will have their profile promoted in the most effective manner. The next most effective way was to verify your profile so it would be shown in an effective way to draw more interest into your profile, ensuring that you are a real person.\
 
 
