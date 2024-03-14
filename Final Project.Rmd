@@ -7,7 +7,6 @@ output:
     theme: architect
     toc: true
     toc_depth: 2
-date: "2024-03-14"
 ---
 
 ```{r, include = FALSE}
@@ -184,7 +183,7 @@ This graph shows us that users who pay for a VIP profile receive on average more
 
 ```{r,warning=FALSE}
 dataset %>%
-  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE), legend = factor(case_when(
+  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE), Legend = factor(case_when(
            isvip == TRUE ~ "isvip",
            verified == TRUE ~ "verified",
            ishighlighted == TRUE ~ "ishighlighted",
@@ -192,7 +191,7 @@ dataset %>%
          ), levels = c("isvip", "verified", "ishighlighted", "no_feature"))) %>%
   filter(total_interaction != "173713") %>% 
   ggplot() +
-  geom_boxplot(aes(x = user_feat, y = total_interaction, fill = legend))+
+  geom_boxplot(aes(x = user_feat, y = total_interaction, fill = Legend))+
   ylim(0,7500)+
   xlab("User features")+
   ylab("Number of Interactions")+
