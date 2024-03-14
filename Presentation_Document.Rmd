@@ -33,7 +33,7 @@ dataset1 <- data.world ::query(data.world::qry_sql("SELECT * FROM lovoo_v3_users
   + "highlighting,", "VIP Status" and "verified" 
 * **SO WHAT** 
   + Well does it help you find love or at least relieve some of your insecurity through attention from strangers online?
-* The questions is, does paying for features like **highlight** actually improve your visibility and overall interactions? Does it make a relevant difference?
+* The questions is, does paying for features like **highlight** actually improve your visibility and overall interactions? Does it make a significant difference?
 
 ## Hypothesis
 1. **The research question at hand is whether users who opt for profile highlighting receive more attention and interaction compared to those who do not utilize this feature.**
