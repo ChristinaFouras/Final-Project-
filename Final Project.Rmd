@@ -27,7 +27,7 @@ dataset1 <- data.world ::query(data.world::qry_sql("SELECT * FROM lovoo_v3_users
 
 According to Pew Research Center up to 53% of couples under 30 meet online. The proliferation of dating apps has transformed the landscape of modern romance, providing individuals with unprecedented opportunities to connect with potential partners. Amidst the array of features offered by these platforms, the option to pay for enhanced profile visibility, known as **"highlighting,"** has emerged as a strategy to increase user engagement. Profile highlighting aims to elevate the visibility of user profiles within the app's interface, potentially amplifying opportunities for interaction and connection. ^[Bouke de Vries 2023 <https://doi.org/10.1007/s10676-023-09704-y>].\
 We all know dating apps are a huge part of dating life nowadays. We also know that they indeed make it easier to explore options.\
-The questions is, does paying for features like **highlight** actually improve your visibility and overall interactions? Does it make a relevant difference?
+The questions is, does paying for features like **highlight** actually improve your visibility and overall interactions? Does it make a significant difference?
 
 ## Hypothesis
 1. The research question at hand is whether users who opt for profile highlighting receive more attention and interaction compared to those who do not utilize this feature.
@@ -106,7 +106,7 @@ dataset1 %>%
   ggplot() +
   geom_boxplot(aes(x = user_feat, y = total_interaction, fill = user_feat))+
   ylim(0,15000)+
-  xlab("Combined user features")+
+  xlab("Users who had any combination of features")+
   ylab("Number of interactions")+
   ggtitle("Number of user interactions based on use of App features")
 ```
@@ -188,7 +188,7 @@ We can see that the only feature that you have to pay for with real money does s
 
 ## Conclusion 
 
-Dating apps are continuously updating themselves trying new strategies to engage more and create new revenue streams. Our deep dive into their data attempted to analyse whether the creation of new features has been effective for users.\
+Dating apps aare being continuously being updated searching for new strategies to engage more and create new revenue streams. Our deep dive into their data attempted to analyse whether the creation of new features has been effective for users.\
 Tying it back to our hypothesis, we see in our final graph that users who opt for profile highlighting receive on average more attention and interaction compared to those who do not utilize this feature. We also found that users that are verified or VIP benefit even more than those highlighted. A user that pays for the VIP feature on average gets more interaction than any other feature or non-feature.\
 Additionally, as we hypothesized, there are many users that don't claim any features but still obtain high interaction.\
 A drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insight onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
