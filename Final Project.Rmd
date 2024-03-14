@@ -1,5 +1,5 @@
 ---
-sstitle: "Final Project:Christina, Gaia Menni, Alex Palache"
+sstitle: "Final Project:Christina Fouras, Gaia Menni, Alex Palache"
 output:
   prettydoc::html_pretty:
     theme: architect
@@ -50,14 +50,14 @@ For this data set we created a new variable combining "counts_kisses," "counts_p
 - counts_kisses = likes
 - counts_profilevisits = profile visits
 - counts_fans = followers
-```{r}
+```{r, results='hide'}
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans) %>%
   select(total_interaction, counts_kisses, counts_profilevisits, counts_fans)
 ```
 We also combined the users who are subscribed to at least one of the features to see how their level of interaction is compared to everyone else.
 
-```{r}
+```{r, results='hide'}
 dataset1 %>%
   mutate(user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE)) %>%
   select(user_feat, ishighlighted, isvip, verified) %>%
@@ -65,22 +65,14 @@ dataset1 %>%
 ```
 
 ### How did you transform the dataset to visualize it? INCLUDE 2 EX
-```{r}
-#DO WE STILL NEED THIS?
-#I want to combine these three things into one table by themselves and arrange in descending order 
-interaction_data <- merge(dataset1, highlighted_interaction, by = NULL)
-
-View(interaction_data)
-
-```
 We created a new data set that includes only the variables of interest for this project.
-```{r}
+```{r, results='hide'}
 dataset <- dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE)) %>%
   select(isvip, verified, ishighlighted, total_interaction, counts_kisses, counts_profilevisits, counts_fans, user_feat)
 ```
 We also filtered out one of the outlier values to get a better look at the overall trends.
-```{r}
+```{r,results='hide'}
 dataset %>%
    mutate(total_interaction = counts_kisses + counts_profilevisits) %>%
   filter(total_interaction != "173713")
@@ -88,51 +80,36 @@ dataset %>%
 
 ### Exploration (include 2-3 exploratory vizualisations)
 This first visualization shows us that there are more users that don't pay for highlithing than those who do.
-```{r}
+```{r,warning=FALSE}
 
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits) %>%
   filter(total_interaction != "173713") %>%
   ggplot() +
-  geom_jitter(aes(x = ishighlighted, y = total_interaction))
- 
-
-
-#To delete?
-dataset %>%
-  filter(total_interaction != "173713") %>%
-  mutate(subgroup = interaction(isvip, verified, ishighlighted),
-         fill_variable = factor(case_when(
-           isvip == TRUE ~ "isvip",
-           verified == TRUE ~ "verified",
-           ishighlighted == TRUE ~ "ishighlighted",
-           isvip == FALSE ~ "isvip",
-           verified == FALSE ~ "verified",
-           ishighlighted == FALSE ~ "ishighlighted"
-         ), levels = c("isvip", "verified", "ishighlighted"))) %>%
-  ggplot() + 
-  geom_boxplot(aes(x = subgroup, y = total_interaction, fill = fill_variable)) +
-  labs(title = "Figure 1", x = "Subgroup", y = "Total Interaction", fill = "Variables") +
-  scale_fill_manual(values = c("isvip" = "blue", "verified" = "green", "ishighlighted" = "pink")) +
-  theme_minimal() +
-  theme(axis.text.x = element_blank()) +
-  coord_cartesian(ylim = c(0, 9000))
+  geom_jitter(aes(x = ishighlighted, y = total_interaction))+
+  xlab("Users who are Highlighted")+
+  ylab("Number of interactions")+
+  ggtitle("Number of user interactions based on Highlighted Feature")
 
 ```
 This second visualization shows us that on average those who do pay for a feature get more interaction.
 
-```{r}
+```{r,warning=FALSE}
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE)) %>% 
   filter(total_interaction != "173713") %>% 
   ggplot() +
-  geom_boxplot(aes(x = user_feat, y = total_interaction, fill = user_feat))
+  geom_boxplot(aes(x = user_feat, y = total_interaction, fill = user_feat))+
+  ylim(0,15000)+
+  xlab("Combined user features")+
+  ylab("Number of interactions")+
+  ggtitle("Number of user interactions based on use of App features")
 ```
 
 ## Findings and Interpretations
 create result table
 result viz include code chunk for this
-```{r}
+```{r,warning=FALSE}
 #ishighlighted final boxplot
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits) %>% 
@@ -140,7 +117,11 @@ dataset1 %>%
   ggplot(aes(x = ishighlighted, y = total_interaction)) +
   geom_jitter(color = "red") +
   geom_boxplot(outlier.shape = NA, alpha = 0.05) +
-  ylim(0,40000)
+  ylim(0,15000)+
+  xlab("Highlighted Feature")+
+  ylab("Number of interactions")+
+  ggtitle("Number of user interactions based Highlighted Feature")
+  
 
 
 #verified final boxplot
@@ -150,7 +131,10 @@ dataset1 %>%
   ggplot(aes(x = verified, y = total_interaction)) +
   geom_jitter(color = "green") +
   geom_boxplot(outlier.shape = NA, alpha = 0.05) +
-  ylim(0,40000)
+  ylim(0,15000)+
+  xlab("Verified Feature")+
+  ylab("Number of interactions")+
+  ggtitle("Number of user interactions based Verified Feature")
 
 #isvip final boxplot
 dataset1 %>%
@@ -159,7 +143,11 @@ dataset1 %>%
   ggplot(aes(x = isvip, y = total_interaction)) +
   geom_jitter(color = "blue") + 
   geom_boxplot(outlier.shape = NA, alpha = 0.05) +
-  ylim(0,40000)
+  ylim(0,10000)+
+  xlab("VIP Feature")+
+  ylab("Number of interactions")+
+  ggtitle("Number of user interactions based VIP Feature")
+
 
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE), fill_variable = factor(case_when(
@@ -170,8 +158,13 @@ dataset1 %>%
          ), levels = c("isvip", "verified", "ishighlighted", "other"))) %>%
   filter(total_interaction != "173713") %>% 
   ggplot() +
-  geom_boxplot(aes(x = user_feat, y = total_interaction, fill = fill_variable))
+  geom_boxplot(aes(x = user_feat, y = total_interaction, fill = fill_variable))+
+  ylim(0,7500)+
+  xlab("User features")+
+  ylab("Number of interactions")+
+  ggtitle("Comparison of different User Features")
 
+#I changed the y limit here just so it was a little bit more clear 
 ```
 
 ## Conclusion (answer following questions)
@@ -179,6 +172,6 @@ What do your findings reveal about the relationship of interest?
 How might you refine your hypothesis?
 What significance does figuring out this relationship hold for society/science at large? (we’re likely tackling small problems here, so don’t be intimidated by this big language, it’s always important to explain why figuring out what you’re figuring out is *somehow* worth caring about. Stating the significance is always your pre-emptive answer to someone’s “so what?” question)
 
-LOTS OF CONCLUSION STATEMENTS. WOOOO. WORDS. WORDS. WORDS. WORDS. WORDS. WORDS. SIGNIFICANCE. WOOO. One drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insite onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
+Dating apps are continuously updating themselves trying new strategies to engage more and create new revenue streams. Our deep dive into their data attempted to analyse whether the creation of new features has been effective. We can see that the only feature that you have to pay for does seem to be doing what its supposed to in that those who are willing to shill out a little extra, the effects of your profile being promoted is very effective. Next most effective was the most accessible being verifying your profile was shown to be an effective way to draw more interest into your profile ensuring that you are a real person. A drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insite onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
 
 
