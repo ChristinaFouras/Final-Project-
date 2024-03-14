@@ -203,24 +203,10 @@ dataset1 %>%
 
 ```
 
-### Figure 4: Compares the three user features in how much people interacted with their accounts based on wether or not people opted to use them.   
-
 ### Figure 4: Compares the different user features on the why axis using total interactions on the y axis 
 
 
 ## Conclusion 
-
-- **What have we learnt** 
-  - Averages total interactions for those who particpated in app features was higher
-  - Worst case senarios are WAYYYY better
-- **Circling back**
-  - The VIP feature was the pretty clear winner for the most effective but also the only feature you had to pay for 
-  - Simply being varified helped alot as well
-- **Drawbacks** 
-  - We will never learn how it went:(
-    - without data on wether or not people ever even went out we are unable to truely test how effective a strategy may have been 
-  - Limited data on some of the lesser used features
- 
 
 - What have we learnt 
   - Averages total interactions for those who particpated in app features
