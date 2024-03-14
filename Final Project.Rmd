@@ -122,10 +122,13 @@ dataset1 %>%
   ylim(0,15000)+
   xlab("Highlighted Feature")+
   ylab("Number of interactions")+
-  ggtitle("Number of user interactions based Highlighted Feature")
-  
+  ggtitle("Figure 1")
 
+```
 
+### Figure 1: Graph depicting the relationship between the “Number of interactions” and “Highlighted Feature”. 
+
+```{r, warning=FALSE}
 #verified final boxplot
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits+counts_fans) %>% 
@@ -136,8 +139,13 @@ dataset1 %>%
   ylim(0,15000)+
   xlab("Verified Feature")+
   ylab("Number of interactions")+
-  ggtitle("Number of user interactions based Verified Feature")
+  ggtitle("Figure 2")
 
+```
+
+### Figure 2:  Graph depicting the relationship between the “Number of interactions” and “Verified Feature”. 
+
+```{r, warning=FALSE}
 #isvip final boxplot
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans) %>% 
@@ -148,9 +156,13 @@ dataset1 %>%
   ylim(0,15000)+
   xlab("VIP Feature")+
   ylab("Number of interactions")+
-  ggtitle("Number of user interactions based VIP Feature")
+  ggtitle("Figure 3")
 
+```
 
+### Figure 3:  Graph depicting the relationship between the “Number of interactions” and “VIP  Feature”.
+
+```{r,warning=FALSE}
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE), legend = factor(case_when(
            isvip == TRUE ~ "isvip",
@@ -164,12 +176,23 @@ dataset1 %>%
   ylim(0,7500)+
   xlab("User features")+
   ylab("Number of interactions")+
-  ggtitle("Comparison of different User Features")
+  ggtitle("Figure 4")
 
 ```
 
+### Figure 4: Graph of multiple boxplots comparing the averages of people who are VIP, verified, or highlighted against the average of people who are none of those. The Y-axis is “Number of interactions” and the x-avis is “User features”. “User feature” is the variable “user_feat” which consists of “ishighlighted”, “isvip”, and “verified”.  
+
+
+Figures 1 through 3 are visualizations of the dataset, specifically the variables “ishighlighted”, “verified”, and “isvip”. These are all different ways a person can modify their profile to be more visible on the app. They are compared with the variable “total_interaction”. This variable is a combination of “counts_kisses”, “counts_profilevisits”, and “counts_fans”. These variables are all ways to measure the amount of interaction a person's profile gets. “Counts_kisses” measures the amount of ‘kisses’ a profile gets, equivalent to liking a person's profile.  
+
+
+
 ## Conclusion 
 
-Dating apps are continuously updating themselves trying new strategies to engage more and create new revenue streams. Our deep dive into their data attempted to analyse whether the creation of new features has been effective. We can see that the only feature that you have to pay for with real money does seem to be doing what its supposed to in that those who are willing to shill out a little extra, the effects of your profile being promoted is very effective. Next most effective was the most accessible being verifying your profile was shown to be an effective way to draw more interest into your profile ensuring that you are a real person. A drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insite onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
+Dating apps are continuously updating themselves trying new strategies to engage more and create new revenue streams. Our deep dive into their data attempted to analyse whether the creation of new features has been effective. We can see that the only feature that you have to pay for with real money does seem to be doing what its supposed to.Those who are willing to shill out a little extra, will have their profile promoted in an effective manner. The next most effective way was to verify your profile so it would be shown in an effective way to draw more interest into your profile, ensuring that you are a real person. A drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insight onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
 
 
+
+Footnotes
+
+^[Data Dictionary <https://data.world/jfreex/dating-app-user-profiles-stats-lovoo-v3/workspace/data-dictionary>]
