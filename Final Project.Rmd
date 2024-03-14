@@ -190,7 +190,7 @@ We can see that the only feature that you have to pay for with real money does s
 
 Dating apps aare being continuously being updated searching for new strategies to engage more and create new revenue streams. Our deep dive into their data attempted to analyse whether the creation of new features has been effective for users.\
 Tying it back to our hypothesis, we see in our final graph that users who opt for profile highlighting receive on average more attention and interaction compared to those who do not utilize this feature. We also found that users that are verified or VIP benefit even more than those highlighted. A user that pays for the VIP feature on average gets more interaction than any other feature or non-feature.\
-Additionally, as we hypothesized, there are many users that don't claim any features but still obtain high interaction.\
+Additionally, as we hypothesized, there are many users that don't claim any features but still obtain high interaction.\ 
 A drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insight onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
 
 
