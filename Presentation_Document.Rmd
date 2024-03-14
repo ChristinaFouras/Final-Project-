@@ -1,10 +1,11 @@
 ---
-sstitle: "Final Project:Christina Fouras, Gaia Menni, Alex Palache"
+title: "Final Project: Lovoo and Its Features"
+author: "Christina Fouras, Gaia Menni, Alex Palache"
+date: "2024-03-14"
 output:
   prettydoc::html_pretty:
     theme: architect
     toc: true
-date: "2024-03-14"
 ---
 
 ```{r, include = FALSE}
@@ -21,9 +22,8 @@ knitr::opts_chunk$set(echo = TRUE)
 dataset1 <- data.world ::query(data.world::qry_sql("SELECT * FROM lovoo_v3_users_api_results"), dataset = "https://data.world/jfreex/dating-app-user-profiles-stats-lovoo-v3")
 
 ```
-# FINAL PROJECT
 
-![Logo](https://upload.wikimedia.org/wikipedia/commons/c/c2/Lovoo_Icon_Heart.png){width=25%} 
+![](https://upload.wikimedia.org/wikipedia/commons/c/c2/Lovoo_Icon_Heart.png){width=25%} 
 
 ## Backround Information 
 
@@ -67,7 +67,7 @@ Our hypothesis is that these features do result in more likes, profile visits an
 ## Transformations
 ### How did we make the data set tidy?
 
-We were lucky, already tidy!
+We were lucky, it's already tidy!
 
 ### What variables did we create
 For this data set we created a new variable combining "counts_kisses," "counts_profilevisits" and "counts_fans" to make "total_interaction". This is to be able to compare total_interaction and "ishighlighted" to determine if paying to be highlighted gives the person more interaction.\ 
@@ -118,10 +118,9 @@ dataset1 %>%
   ggtitle("Number of user interactions based on Highlighted Feature")
 
 ```
-\ This second visualization shows us that on average those who do pay for a feature get more interaction.
 
 ```{r,warning=FALSE}
-dataset1 %>%
+dataset %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE)) %>% 
   filter(total_interaction != "173713") %>% 
   ggplot() +
@@ -132,11 +131,21 @@ dataset1 %>%
   ggtitle("Number of user interactions based on use of App features")
 ```
 
+### Table
+```{r}
+table <- dataset1 %>%
+  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE)) %>%
+           group_by(user_feat) %>%
+           summarise(avg_interaction = mean(total_interaction))
+
+kable(table)
+```
+
 ## Findings and Interpretations
 
 ```{r,warning=FALSE}
 #ishighlighted final boxplot
-dataset1 %>%
+dataset %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits) %>% 
   filter(total_interaction != "173713") %>% 
   ggplot(aes(x = ishighlighted, y = total_interaction)) +
@@ -153,7 +162,7 @@ dataset1 %>%
 
 ```{r, warning=FALSE}
 #verified final boxplot
-dataset1 %>%
+dataset %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits+counts_fans) %>% 
   filter(total_interaction != "173713") %>% 
   ggplot(aes(x = verified, y = total_interaction)) +
@@ -170,7 +179,7 @@ dataset1 %>%
 
 ```{r, warning=FALSE}
 #isvip final boxplot
-dataset1 %>%
+dataset %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans) %>% 
   filter(total_interaction != "173713") %>% 
   ggplot(aes(x = isvip, y = total_interaction)) +
@@ -186,7 +195,7 @@ dataset1 %>%
 ### Figure 3:  Graph depicting the relationship between the “Number of interactions” and “VIP  Feature”.
 
 ```{r,warning=FALSE}
-dataset1 %>%
+dataset %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE), legend = factor(case_when(
            isvip == TRUE ~ "isvip",
            verified == TRUE ~ "verified",
@@ -218,8 +227,6 @@ Figures 1 through 3 are visualizations of the dataset, specifically the variable
 - Drawbacks 
 Dating apps are continuously updating themselves trying new strategies to engage more and create new revenue streams. Our deep dive into their data attempted to analyse whether the creation of new features has been effective. We can see that the only feature that you have to pay for with real money does seem to be doing what its supposed to.Those who are willing to shill out a little extra, will have their profile promoted in an effective manner. The next most effective way was to verify your profile so it would be shown in an effective way to draw more interest into your profile, ensuring that you are a real person. A drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insight onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
 
-
+Data Dictionary^[Data Dictionary <https://data.world/jfreex/dating-app-user-profiles-stats-lovoo-v3/workspace/data-dictionary>]
 
 Footnotes
-
-^[Data Dictionary <https://data.world/jfreex/dating-app-user-profiles-stats-lovoo-v3/workspace/data-dictionary>]
