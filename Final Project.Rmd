@@ -3,6 +3,7 @@ sstitle: "Final Project:Christina Fouras, Gaia Menni, Alex Palache"
 output:
   prettydoc::html_pretty:
     theme: architect
+    toc: true
 date: "2024-03-14"
 ---
 
@@ -46,17 +47,19 @@ This data was collected in the Spring of 2015 (April - May). The dating app used
 We were lucky, already tidy!
 
 ### What variables did we create
-For this data set we created a new variable combining "counts_kisses," "counts_profilevisits" and "counts_fans" to make "total_interaction". This is to be able to compare total_interaction and "ishighlighted" to determine if paying to be highlighted gives the person more interaciton.\ 
+For this data set we created a new variable combining "counts_kisses," "counts_profilevisits" and "counts_fans" to make "total_interaction". This is to be able to compare total_interaction and "ishighlighted" to determine if paying to be highlighted gives the person more interaction.\ 
 - counts_kisses = likes
 - counts_profilevisits = profile visits
 - counts_fans = followers
 ```{r, results='hide'}
 dataset1 %>%
-  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans) %>%
-  select(total_interaction, counts_kisses, counts_profilevisits, counts_fans)
+  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans)
 ```
 We also combined the users who are subscribed to at least one of the features to see how their level of interaction is compared to everyone else.
-
+For clarification:
+ishighlighted = A user can use **in-app currency** to have one's profile temporarily highlighted and get more matches
+isvip = The user bought a VIP status with **real money**. This status came with benefits.
+verified = Whether the user's account was verified through one of the methods (Facebook, phone number, ...)
 ```{r, results='hide'}
 dataset1 %>%
   mutate(user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE)) %>%
@@ -64,7 +67,7 @@ dataset1 %>%
   filter(user_feat == TRUE)
 ```
 
-### How did you transform the dataset to visualize it? INCLUDE 2 EX
+### How did you transform the dataset to visualize it? 
 We created a new data set that includes only the variables of interest for this project.
 ```{r, results='hide'}
 dataset <- dataset1 %>%
@@ -78,8 +81,8 @@ dataset %>%
   filter(total_interaction != "173713")
 ```
 
-### Exploration (include 2-3 exploratory vizualisations)
-This first visualization shows us that there are more users that don't pay for highlithing than those who do.
+### Exploration 
+This first visualization shows us that there are more users that don't pay for highlighting than those who do. We can also see that many people gain high interactions even without paying for the highlighted feature.
 ```{r,warning=FALSE}
 
 dataset1 %>%
@@ -107,8 +110,7 @@ dataset1 %>%
 ```
 
 ## Findings and Interpretations
-create result table
-result viz include code chunk for this
+
 ```{r,warning=FALSE}
 #ishighlighted final boxplot
 dataset1 %>%
@@ -143,35 +145,31 @@ dataset1 %>%
   ggplot(aes(x = isvip, y = total_interaction)) +
   geom_jitter(color = "blue") + 
   geom_boxplot(outlier.shape = NA, alpha = 0.05) +
-  ylim(0,10000)+
+  ylim(0,15000)+
   xlab("VIP Feature")+
   ylab("Number of interactions")+
   ggtitle("Number of user interactions based VIP Feature")
 
 
 dataset1 %>%
-  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE), fill_variable = factor(case_when(
+  mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE), legend = factor(case_when(
            isvip == TRUE ~ "isvip",
            verified == TRUE ~ "verified",
            ishighlighted == TRUE ~ "ishighlighted",
-           TRUE ~ "other"
-         ), levels = c("isvip", "verified", "ishighlighted", "other"))) %>%
+           TRUE ~ "no_feature"
+         ), levels = c("isvip", "verified", "ishighlighted", "no_feature"))) %>%
   filter(total_interaction != "173713") %>% 
   ggplot() +
-  geom_boxplot(aes(x = user_feat, y = total_interaction, fill = fill_variable))+
+  geom_boxplot(aes(x = user_feat, y = total_interaction, fill = legend))+
   ylim(0,7500)+
   xlab("User features")+
   ylab("Number of interactions")+
   ggtitle("Comparison of different User Features")
 
-#I changed the y limit here just so it was a little bit more clear 
 ```
 
-## Conclusion (answer following questions)
-What do your findings reveal about the relationship of interest?
-How might you refine your hypothesis?
-What significance does figuring out this relationship hold for society/science at large? (we’re likely tackling small problems here, so don’t be intimidated by this big language, it’s always important to explain why figuring out what you’re figuring out is *somehow* worth caring about. Stating the significance is always your pre-emptive answer to someone’s “so what?” question)
+## Conclusion 
 
-Dating apps are continuously updating themselves trying new strategies to engage more and create new revenue streams. Our deep dive into their data attempted to analyse whether the creation of new features has been effective. We can see that the only feature that you have to pay for does seem to be doing what its supposed to in that those who are willing to shill out a little extra, the effects of your profile being promoted is very effective. Next most effective was the most accessible being verifying your profile was shown to be an effective way to draw more interest into your profile ensuring that you are a real person. A drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insite onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
+Dating apps are continuously updating themselves trying new strategies to engage more and create new revenue streams. Our deep dive into their data attempted to analyse whether the creation of new features has been effective. We can see that the only feature that you have to pay for with real money does seem to be doing what its supposed to in that those who are willing to shill out a little extra, the effects of your profile being promoted is very effective. Next most effective was the most accessible being verifying your profile was shown to be an effective way to draw more interest into your profile ensuring that you are a real person. A drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insite onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
 
 
