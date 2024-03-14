@@ -25,13 +25,15 @@ dataset1 <- data.world ::query(data.world::qry_sql("SELECT * FROM lovoo_v3_users
 
 ## Backround Information 
 
-According to Pew Research Center up to 53% of couples under 30 meet online. The proliferation of dating apps has transformed the landscape of modern romance, providing individuals with unprecedented opportunities to connect with potential partners. Amidst the array of features offered by these platforms, the option to pay for enhanced profile visibility, known as **"highlighting,"** has emerged as a strategy to increase user engagement. Profile highlighting aims to elevate the visibility of user profiles within the app's interface, potentially amplifying opportunities for interaction and connection. ^[Bouke de Vries 2023 <https://doi.org/10.1007/s10676-023-09704-y>]\ We all know dating apps are a huge part of dating life nowadays. We also know that they indeed make it easier to explore options.\ 
+According to Pew Research Center up to 53% of couples under 30 meet online. The proliferation of dating apps has transformed the landscape of modern romance, providing individuals with unprecedented opportunities to connect with potential partners. Amidst the array of features offered by these platforms, the option to pay for enhanced profile visibility, known as **"highlighting,"** has emerged as a strategy to increase user engagement. Profile highlighting aims to elevate the visibility of user profiles within the app's interface, potentially amplifying opportunities for interaction and connection. ^[Bouke de Vries 2023 <https://doi.org/10.1007/s10676-023-09704-y>].\
+We all know dating apps are a huge part of dating life nowadays. We also know that they indeed make it easier to explore options.\
 The questions is, does paying for features like **highlight** actually improve your visibility and overall interactions? Does it make a relevant difference?
 
 ## Hypothesis
 1. The research question at hand is whether users who opt for profile highlighting receive more attention and interaction compared to those who do not utilize this feature.
 
-2. In addition, we want to look at what other features improve interaction.\ 
+2. In addition, we want to look at what other features improve interaction.\
+
 Our hypothesis is that these features do result in more likes, profile visits and followers on average, but many people who don't use them can still receive just as many or even more.
 
 
@@ -47,23 +49,23 @@ This data was collected in the Spring of 2015 (April - May). The dating app used
 We were lucky, already tidy!
 
 ### What variables did we create
-For this data set we created a new variable combining "counts_kisses," "counts_profilevisits" and "counts_fans" to make "total_interaction". This is to be able to compare total_interaction and "ishighlighted" to determine if paying to be highlighted gives the person more interaction.\ 
-- counts_kisses = likes
-- counts_profilevisits = profile visits
-- counts_fans = followers
+For this data set we created a new variable combining "counts_kisses," "counts_profilevisits" and "counts_fans" to make "total_interaction". This is to be able to compare total_interaction and "ishighlighted" to determine if paying to be highlighted gives the person more interaction.\
+For clarification:\
+- *counts_kisses* = likes\
+- *counts_profilevisits* = profile visits\
+- *counts_fans* = followers
 ```{r, results='hide'}
 dataset1 %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans)
 ```
-We also combined the users who are subscribed to at least one of the features to see how their level of interaction is compared to everyone else.
-For clarification:
-ishighlighted = A user can use **in-app currency** to have one's profile temporarily highlighted and get more matches
-isvip = The user bought a VIP status with **real money**. This status came with benefits.
-verified = Whether the user's account was verified through one of the methods (Facebook, phone number, ...)
+We also combined the users who are subscribed to at least one of the features to see how their level of interaction is compared to everyone else.\
+For clarification:\
+*ishighlighted* = A user can use **in-app currency** to have one's profile temporarily highlighted and get more matches.\
+*isvip* = The user bought a VIP status with **real money**. This status came with benefits.\
+*verified* = Whether the user's account was verified through one of the methods (Facebook, phone number, ...)
 ```{r, results='hide'}
 dataset1 %>%
   mutate(user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE)) %>%
-  select(user_feat, ishighlighted, isvip, verified) %>%
   filter(user_feat == TRUE)
 ```
 
@@ -95,7 +97,7 @@ dataset1 %>%
   ggtitle("Number of user interactions based on Highlighted Feature")
 
 ```
-\ This second visualization shows us that on average those who do pay for a feature get more interaction.
+This second visualization shows us that on average those who do claim a feature get more interaction.
 
 ```{r,warning=FALSE}
 dataset1 %>%
@@ -111,9 +113,9 @@ dataset1 %>%
 
 ## Findings and Interpretations
 
+### Figure 1: Graph depicting the relationship between the “Number of Interactions” and “Highlighted Feature”. 
 ```{r,warning=FALSE}
-#ishighlighted final boxplot
-dataset1 %>%
+dataset %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits) %>% 
   filter(total_interaction != "173713") %>% 
   ggplot(aes(x = ishighlighted, y = total_interaction)) +
@@ -121,16 +123,15 @@ dataset1 %>%
   geom_boxplot(outlier.shape = NA, alpha = 0.05) +
   ylim(0,15000)+
   xlab("Highlighted Feature")+
-  ylab("Number of interactions")+
+  ylab("Number of Interactions")+
   ggtitle("Figure 1")
 
 ```
-
-### Figure 1: Graph depicting the relationship between the “Number of interactions” and “Highlighted Feature”. 
+This graph shows us that users who opt for profile highlighting receive on average more attention and interaction compared to those who do not utilize this feature.
+### Figure 2: Graph depicting the relationship between the “Number of interactions” and “Verified Feature”. 
 
 ```{r, warning=FALSE}
-#verified final boxplot
-dataset1 %>%
+dataset %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits+counts_fans) %>% 
   filter(total_interaction != "173713") %>% 
   ggplot(aes(x = verified, y = total_interaction)) +
@@ -138,16 +139,15 @@ dataset1 %>%
   geom_boxplot(outlier.shape = NA, alpha = 0.05) +
   ylim(0,15000)+
   xlab("Verified Feature")+
-  ylab("Number of interactions")+
+  ylab("Number of Interactions")+
   ggtitle("Figure 2")
 
 ```
-
-### Figure 2:  Graph depicting the relationship between the “Number of interactions” and “Verified Feature”. 
+This graph shows us that users who opt for a verified profile receive on average more attention and interaction compared to those who do not utilize this feature.
+### Figure 3:  Graph depicting the relationship between the “Number of interactions” and “VIP Feature”. 
 
 ```{r, warning=FALSE}
-#isvip final boxplot
-dataset1 %>%
+dataset %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans) %>% 
   filter(total_interaction != "173713") %>% 
   ggplot(aes(x = isvip, y = total_interaction)) +
@@ -155,15 +155,15 @@ dataset1 %>%
   geom_boxplot(outlier.shape = NA, alpha = 0.05) +
   ylim(0,15000)+
   xlab("VIP Feature")+
-  ylab("Number of interactions")+
+  ylab("Number of Interactions")+
   ggtitle("Figure 3")
 
 ```
-
-### Figure 3:  Graph depicting the relationship between the “Number of interactions” and “VIP  Feature”.
+This graph shows us that users who pay for a VIP profile receive on average more attention and interaction compared to those who do not utilize this feature.
+### Figure 4: Graph of multiple boxplots comparing the averages of people who are VIP, verified, or highlighted against the average of people who are none of those. The Y-axis is “Number of interactions” and the x-axis is “User features”. “User features” is the variable “user_feat” which consists of “ishighlighted”, “isvip”, “verified” and "no_feature." 
 
 ```{r,warning=FALSE}
-dataset1 %>%
+dataset %>%
   mutate(total_interaction = counts_kisses + counts_profilevisits + counts_fans, user_feat = (ishighlighted == TRUE | isvip == TRUE | verified == TRUE), legend = factor(case_when(
            isvip == TRUE ~ "isvip",
            verified == TRUE ~ "verified",
@@ -175,24 +175,25 @@ dataset1 %>%
   geom_boxplot(aes(x = user_feat, y = total_interaction, fill = legend))+
   ylim(0,7500)+
   xlab("User features")+
-  ylab("Number of interactions")+
+  ylab("Number of Interactions")+
   ggtitle("Figure 4")
 
 ```
+This graph shows us that users who opt for any of the provided features receive on average more attention and interaction compared to those who do not utilize these features. The feature associated with the highest interaction is VIP.\
 
-### Figure 4: Graph of multiple boxplots comparing the averages of people who are VIP, verified, or highlighted against the average of people who are none of those. The Y-axis is “Number of interactions” and the x-avis is “User features”. “User feature” is the variable “user_feat” which consists of “ishighlighted”, “isvip”, and “verified”.  
-
-
-Figures 1 through 3 are visualizations of the dataset, specifically the variables “ishighlighted”, “verified”, and “isvip”. These are all different ways a person can modify their profile to be more visible on the app. They are compared with the variable “total_interaction”. This variable is a combination of “counts_kisses”, “counts_profilevisits”, and “counts_fans”. These variables are all ways to measure the amount of interaction a person's profile gets. “Counts_kisses” measures the amount of ‘kisses’ a profile gets, equivalent to liking a person's profile.  
+Figures 1 through 3 are visualizations of the dataset, specifically the variables “ishighlighted”, “verified”, and “isvip”. These are all different ways a person can modify their profile to be more visible on the app. They are compared with the variable “total_interaction”. This variable is a combination of “counts_kisses”, “counts_profilevisits”, and “counts_fans”. These variables are all ways to measure the amount of interaction a person's profile gets. “Counts_kisses” measures the amount of ‘kisses’ a profile gets, equivalent to liking a person's profile.\
+We can see that the only feature that you have to pay for with real money does seem to be doing what its supposed to. Those who are willing to shill out a little extra, will have their profile promoted in the most effective manner. The next most effective way was to verify your profile so it would be shown in an effective way to draw more interest into your profile, ensuring that you are a real person.\
 
 
 
 ## Conclusion 
 
-Dating apps are continuously updating themselves trying new strategies to engage more and create new revenue streams. Our deep dive into their data attempted to analyse whether the creation of new features has been effective. We can see that the only feature that you have to pay for with real money does seem to be doing what its supposed to.Those who are willing to shill out a little extra, will have their profile promoted in an effective manner. The next most effective way was to verify your profile so it would be shown in an effective way to draw more interest into your profile, ensuring that you are a real person. A drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insight onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
+Dating apps are continuously updating themselves trying new strategies to engage more and create new revenue streams. Our deep dive into their data attempted to analyse whether the creation of new features has been effective for users.\
+Tying it back to our hypothesis, we see in our final graph that users who opt for profile highlighting receive on average more attention and interaction compared to those who do not utilize this feature. We also found that users that are verified or VIP benefit even more than those highlighted. A user that pays for the VIP feature on average gets more interaction than any other feature or non-feature.\
+Additionally, as we hypothesized, there are many users that don't claim any features but still obtain high interaction.\
+A drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insight onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
 
 
+Data Dictionary ^[Data Dictionary <https://data.world/jfreex/dating-app-user-profiles-stats-lovoo-v3/workspace/data-dictionary>]
 
 Footnotes
-
-^[Data Dictionary <https://data.world/jfreex/dating-app-user-profiles-stats-lovoo-v3/workspace/data-dictionary>]
