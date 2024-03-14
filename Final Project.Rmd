@@ -1,10 +1,11 @@
 ---
-sstitle: "Final Project:Christina Fouras, Gaia Menni, Alex Palache"
+title: "Final Project: Lovoo and Its Features"
+author: "Christina Fouras, Gaia Menni, Alex Palache"
+date: "2024-03-14"
 output:
   prettydoc::html_pretty:
     theme: architect
     toc: true
-date: "2024-03-14"
 ---
 
 ```{r, include = FALSE}
@@ -21,7 +22,6 @@ knitr::opts_chunk$set(echo = TRUE)
 dataset1 <- data.world ::query(data.world::qry_sql("SELECT * FROM lovoo_v3_users_api_results"), dataset = "https://data.world/jfreex/dating-app-user-profiles-stats-lovoo-v3")
 
 ```
-# FINAL PROJECT
 
 ## Backround Information 
 
@@ -97,6 +97,7 @@ dataset1 %>%
   ggtitle("Number of user interactions based on Highlighted Feature")
 
 ```
+
 This second visualization shows us that on average those who do claim a feature get more interaction.
 
 ```{r,warning=FALSE}
@@ -127,7 +128,9 @@ dataset %>%
   ggtitle("Figure 1")
 
 ```
-This graph shows us that users who opt for profile highlighting receive on average more attention and interaction compared to those who do not utilize this feature.
+
+This graph shows us that users who opt for profile highlighting receive on average more attention and interaction compared to those who do not utilize this feature.\
+
 ### Figure 2: Graph depicting the relationship between the “Number of interactions” and “Verified Feature”. 
 
 ```{r, warning=FALSE}
@@ -143,7 +146,9 @@ dataset %>%
   ggtitle("Figure 2")
 
 ```
-This graph shows us that users who opt for a verified profile receive on average more attention and interaction compared to those who do not utilize this feature.
+
+This graph shows us that users who opt for a verified profile receive on average more attention and interaction compared to those who do not utilize this feature.\
+
 ### Figure 3:  Graph depicting the relationship between the “Number of interactions” and “VIP Feature”. 
 
 ```{r, warning=FALSE}
@@ -159,7 +164,9 @@ dataset %>%
   ggtitle("Figure 3")
 
 ```
-This graph shows us that users who pay for a VIP profile receive on average more attention and interaction compared to those who do not utilize this feature.
+
+This graph shows us that users who pay for a VIP profile receive on average more attention and interaction compared to those who do not utilize this feature.\
+
 ### Figure 4: Graph of multiple boxplots comparing the averages of people who are VIP, verified, or highlighted against the average of people who are none of those. The Y-axis is “Number of interactions” and the x-axis is “User features”. “User features” is the variable “user_feat” which consists of “ishighlighted”, “isvip”, “verified” and "no_feature." 
 
 ```{r,warning=FALSE}
@@ -179,6 +186,7 @@ dataset %>%
   ggtitle("Figure 4")
 
 ```
+
 This graph shows us that users who opt for any of the provided features receive on average more attention and interaction compared to those who do not utilize these features. The feature associated with the highest interaction is VIP.\
 
 Figures 1 through 3 are visualizations of the dataset, specifically the variables “ishighlighted”, “verified”, and “isvip”. These are all different ways a person can modify their profile to be more visible on the app. They are compared with the variable “total_interaction”. This variable is a combination of “counts_kisses”, “counts_profilevisits”, and “counts_fans”. These variables are all ways to measure the amount of interaction a person's profile gets. “Counts_kisses” measures the amount of ‘kisses’ a profile gets, equivalent to liking a person's profile.\
@@ -194,6 +202,23 @@ Additionally, as we hypothesized, there are many users that don't claim any feat
 A drawback to this dataset is that it ends after the participants went on a first date. Data on the longevity of the relationship, if the participants on the first date entered a relationship together, would provide more insight onto the effectiveness of the app in pairing people together. Considering that dating apps are a primary source of introduction between people looking for relationships the effectiveness of an app, Lovoo or any dating app, would be important information to know, out of interest and for the general public when they choose what app they download. 
 
 
-Data Dictionary ^[Data Dictionary <https://data.world/jfreex/dating-app-user-profiles-stats-lovoo-v3/workspace/data-dictionary>]
+## Data Dictionary^[Data Dictionary <https://data.world/jfreex/dating-app-user-profiles-stats-lovoo-v3/workspace/data-dictionary>]
 
-Footnotes
+`counts_profilevisits`: Integer, whole number, number of clicks on this user (to see his/her full profile) from other user accounts.\
+
+`counts_kisses`: Integer, whole number, Number of unique user accounts that "liked" (called "kiss" on the platform) this user account.\
+
+`counts_fans`: Integer, whole number, Number of followers.\
+
+`total_interaction`: Integer, Whole Number, Combination of counts_profilevisits + counts_kisses + counts_fans to indicate total interactions with the account from other users.\
+
+`ishighlighted`: Boolean, T/F, Whether the user's profile is highlighted. A user can use in-app currency to have one's profile temporarily highlighted and get more matches.\
+
+`isvip`: Boolean, T/F, Whether the user is VIP. It was possible to buy a VIP status with real money. This status comes with benefits.\
+
+`verified`: Boolean, T/F, Whether the user's account was verified through one of the methods (Facebook, phone number, ...).\
+
+`user_feat`: Boolean, T/F, Combination of the users who are subscribed to at least one of the features (ishighlighted, isvip, verified)
+
+
+### Footnotes
